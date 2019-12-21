@@ -5,8 +5,8 @@ const axios = require('axios');
 const bodyParser = require('body-parser');
 const WhatspAppMessageSender = require('./whatsappMessageSender');
 
-const accountSid = process.env.SID;
-const authToken = process.env.SID;
+const accountSid = process.env.SID || 'AC111';
+const authToken = process.env.SID || 'AC'; 
 // const client = require('twilio')(accountSid, authToken);
 // const MessagingResponse = require('twilio').twiml.MessagingResponse;
  
