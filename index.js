@@ -24,10 +24,13 @@ app.post('/incoming', async (req, res) => {
   const term = req.body.Body;
   if(isWikiTerm(term || '')){
     const wikiResponse = await axios.get(`https://api.duckduckgo.com/?skip_disambig=1&format=json&pretty=1&q=${term}`);
-    const message = `${wikiResponse.data.Abstract}
-    
-    link : ${wikiResponse.data.AbstractURL}`
-    return messageSender.send(res, message);
+    if(wikiResponse.data.Abstract){
+      const message = `${wikiResponse.data.Abstract}
+link : ${wikiResponse.data.AbstractURL}`
+      return messageSender.send(res, message);
+    }else{
+      return messageSender.send(res, `Sorry.. I didn't find anything about it...`);
+    }
   }else{
     return messageSender.send(res,`*Hey 👋*
 
